@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Misi Detektif Tajwid — Dunia Ceria</title>
+<style>
+:root{--pink:#ff4fa3;--purple:#8d4dff;--yellow:#ffd33d;--blue:#35c9ff;--green:#5ce58a}
+*{box-sizing:border-box}
+body{margin:0;font-family: "Trebuchet MS",system-ui,sans-serif;color:#42215f;min-height:100vh;overflow-x:hidden;background:linear-gradient(135deg,#ff9ad5,#a7e8ff,#fff08b,#c7a6ff,#9effcb);background-size:400% 400%;animation:sky 18s ease infinite}
+@keyframes sky{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.scene{position:fixed;inset:0;overflow:hidden;z-index:-1;background:linear-gradient(#62d7ff66,#ffcbf266)}
+.cloud{position:absolute;width:150px;height:55px;background:#fff9ff;border-radius:50px;filter:drop-shadow(0 7px 0 #d7a9ff77);animation:cloud 22s linear infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:inherit;border-radius:50%;bottom:15px;width:70px;height:70px}.cloud:before{left:20px}.cloud:after{right:20px;width:55px;height:55px}
+.c1{top:8%;left:-180px;animation-duration:25s}.c2{top:27%;left:-180px;animation-duration:34s;animation-delay:-12s;transform:scale(.7)}.c3{top:58%;left:-180px;animation-duration:29s;animation-delay:-6s;transform:scale(.55)}
+@keyframes cloud{from{translate:0 0}to{translate:calc(100vw + 350px) 0}}
+.bubble{position:absolute;border-radius:50%;opacity:.65;animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(20px) rotate(0)}50%{transform:translateY(-35px) rotate(20deg)}}
+.star{position:absolute;color:#fff45f;text-shadow:0 0 12px #ff9cfd;font-size:25px;animation:twinkle 1.5s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.25;transform:scale(.7) rotate(0)}to{opacity:1;transform:scale(1.3) rotate(25deg)}}
+.hill{position:absolute;bottom:-100px;width:70vw;height:220px;border-radius:50% 50% 0 0;background:linear-gradient(#70f1a4,#32c87e);box-shadow:inset 0 15px #a9ffbd}
+.h1{left:-15%;transform:rotate(-5deg)}.h2{right:-20%;height:270px;background:linear-gradient(#8cf5b1,#38b8ac)}
+.wrap{max-width:1050px;margin:auto;padding:16px}
+.top{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.pill{border:3px solid #fff;background:linear-gradient(120deg,#ff65ba,#9a5cff);color:white;border-radius:22px;padding:10px 16px;font-weight:900;box-shadow:0 6px 0 #7133bc,0 10px 18px #6c329955}
+.score{background:linear-gradient(120deg,#ffdf56,#ff9e52);color:#713e1c;box-shadow:0 6px 0 #d97936}
+h1{text-align:center;font-size:clamp(2rem,5vw,3.7rem);line-height:1.02;margin:20px 0 5px;color:#fff;text-shadow:0 5px 0 #8736b9,0 9px 15px #63319e99;letter-spacing:.5px}
+.subtitle{text-align:center;font-weight:900;color:#6d2b91;font-size:1.1rem;margin-bottom:20px}
+.gamegrid{display:grid;grid-template-columns: .85fr 1.4fr;gap:18px;align-items:stretch}
+.panel{border:4px solid #fff;border-radius:30px;background:linear-gradient(145deg,#fff5a8,#ffc9e8 50%,#c9f4ff);box-shadow:0 9px 0 #8c4eb7,0 16px 30px #63319e35;padding:18px;position:relative;overflow:hidden}
+.panel:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 10% 10%,#fff9 0 4px,transparent 5px),radial-gradient(circle at 90% 80%,#fff9 0 5px,transparent 6px);background-size:65px 60px;pointer-events:none}
+.character{position:relative;text-align:center;padding:10px 5px 15px;animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.avatar{font-size:clamp(5rem,12vw,8rem);filter:drop-shadow(0 8px 0 #c17cdb);display:block}
+.namebadge{display:inline-block;border:3px solid white;border-radius:18px;background:linear-gradient(90deg,#ff69b7,#a45cff);padding:8px 15px;color:white;font-weight:900;box-shadow:0 5px 0 #8737b8}
+input{width:100%;border:3px solid #ffb4df;border-radius:17px;padding:12px;font-size:1rem;font-weight:700;background:#fff4ff;color:#5b327d}
+button{font:inherit;cursor:pointer;border:0;border-radius:17px;padding:12px 15px;font-weight:900;transition:transform .15s,filter .15s;box-shadow:0 5px 0 #7133a9}
+button:hover{transform:translateY(-3px) scale(1.02);filter:brightness(1.06)}button:active{transform:translateY(2px);box-shadow:0 2px 0 #7133a9}
+.primary{width:100%;background:linear-gradient(90deg,#a04cff,#ff4db8);color:white;margin-top:10px;border:3px solid white}
+.questionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.qnum{background:linear-gradient(90deg,#9b4cff,#f34ba7);color:white;border:3px solid white;border-radius:18px;padding:8px 15px;font-weight:1000}
+.progress{height:13px;border-radius:20px;background:#ffffffa8;border:2px solid white;overflow:hidden;margin:12px 0}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#41e78b,#fff04d,#ff7bc2);transition:width .4s}
+.question{background:linear-gradient(135deg,#fff,#fff4b9);border:3px solid #fff;border-radius:24px;padding:18px;text-align:center;box-shadow:inset 0 -5px #ffc3e6;margin:12px 0}
+.arabic{font-family:serif;font-size:clamp(1.6rem,4vw,2.3rem);direction:rtl;line-height:1.8;color:#342044;margin:8px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.answer{min-height:65px;color:white;border:3px solid white;font-size:1rem;text-shadow:0 1px 2px #3335}
+.answer:nth-child(1){background:linear-gradient(135deg,#ff5da8,#ff3983);box-shadow:0 5px #c92970}
+.answer:nth-child(2){background:linear-gradient(135deg,#ffc83d,#ff8c32);box-shadow:0 5px #cb6a24}
+.answer:nth-child(3){background:linear-gradient(135deg,#49e78b,#19b97e);box-shadow:0 5px #168e62}
+.answer:nth-child(4){background:linear-gradient(135deg,#49cfff,#3979ff);box-shadow:0 5px #2853c5}
+.answer:disabled{opacity:.86;cursor:default}
+.feedback{margin-top:14px;padding:12px 15px;border-radius:18px;background:#ffffffd9;border:3px dashed #e68bff;font-weight:900;min-height:52px}
+.next{background:linear-gradient(90deg,#7f4dff,#ff56b6);color:white;border:3px solid white;width:100%;margin-top:10px;display:none}
+.bigscore{font-size:clamp(2.6rem,8vw,4.8rem);font-weight:1000;color:#ff9e00;text-shadow:0 4px white,0 7px #a44ec7;text-align:center}
+.hidden{display:none!important}
+.footer{text-align:center;font-size:.82rem;color:#563477;font-weight:800;padding:16px}
+.confetti{position:fixed;top:-20px;width:12px;height:18px;z-index:9;animation:fall 2.8s linear forwards;border-radius:3px}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.7}}
+@media(max-width:760px){.gamegrid{grid-template-columns:1fr}.avatar{font-size:5rem}.wrap{padding:10px}.panel{padding:14px}.answers{gap:9px}.answer{font-size:.92rem;padding:10px 6px}.top{justify-content:center}}
+.intro{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:18px;background:linear-gradient(135deg,#ff71c8ee,#8d70ffee,#35cffff0,#ffe35fee);background-size:300% 300%;animation:sky 8s ease infinite}
+.introCard{width:min(620px,100%);text-align:center;padding:28px 22px;border:5px solid white;border-radius:36px;background:linear-gradient(145deg,#fff1a6,#ffc7ef,#b7f5ff);box-shadow:0 12px 0 #7e39b4,0 20px 55px #49217c66;animation:bob 2.4s ease-in-out infinite}
+.introCard h1{font-size:clamp(2.2rem,7vw,4rem);margin:14px 0;color:white}
+.introCard p{font-size:1.1rem;font-weight:900;color:#5e287e;line-height:1.5}
+.introMascots{font-size:clamp(4rem,12vw,7rem);filter:drop-shadow(0 7px 0 #d18de7)}
+.introStars{font-size:1.6rem;letter-spacing:5px;animation:twinkle 1.3s infinite alternate}
+#beginBtn{font-size:1.25rem;padding:16px 24px;animation:pulse 1.2s infinite alternate}
+@keyframes pulse{to{transform:scale(1.06);filter:brightness(1.1)}}
+/* playful floating UI motion */
+.panel{animation:panelFloat 4.5s ease-in-out infinite}
+.panel:nth-child(2){animation-delay:-2.1s}
+.pill,.qnum,.namebadge{animation:badgeFloat 3.2s ease-in-out infinite}
+.answer{animation:answerFloat 3s ease-in-out infinite}
+.answer:nth-child(2){animation-delay:-.5s}.answer:nth-child(3){animation-delay:-1s}.answer:nth-child(4){animation-delay:-1.5s}
+.question{animation:questionFloat 4s ease-in-out infinite}
+@keyframes panelFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes answerFloat{0%,100%{translate:0 0}50%{translate:0 -3px}}
+@keyframes questionFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(.15deg)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="scene" aria-hidden="true">
+ <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+ <div class="hill h1"></div><div class="hill h2"></div>
+ <div class="bubble" style="left:8%;top:35%;width:32px;height:32px;background:#ff77c9"></div>
+ <div class="bubble" style="left:89%;top:24%;width:45px;height:45px;background:#fff36b;animation-delay:-2s"></div>
+ <div class="bubble" style="left:74%;top:65%;width:25px;height:25px;background:#8d8bff;animation-delay:-4s"></div>
+ <div class="star" style="left:18%;top:15%">✦</div><div class="star" style="left:80%;top:12%;animation-delay:-.6s">★</div>
+ <div class="star" style="left:93%;top:52%;animation-delay:-1s">✦</div><div class="star" style="left:5%;top:70%;animation-delay:-.4s">★</div>
+</div>
+<div class="intro" id="introScreen">
+ <div class="introCard">
+  <div class="introStars">🌈 ✨ 🎈 ⭐ ✨ 🌈</div>
+  <div class="introMascots">🕵🏻‍♀️　👳🏻‍♂️</div>
+  <h1>Jom Mulakan Misi!</h1>
+  <p>Ikut Alya dan Ustaz Tarmizi mencari bintang tajwid. Bersedia, detektif?</p>
+  <button class="primary" id="beginBtn">🚀 MULA PERMAINAN!</button>
+  <div class="introStars">🎵 🎉 💎 🌟 🎉 🎵</div>
+ </div>
+</div>
+<div class="wrap">
+ <div class="top">
+  <button class="pill" id="musicBtn">🎵 Muzik: OFF</button>
+  <div class="pill score">⭐ Markah: <span id="scoreTop">0</span> / 80</div>
+  <div class="pill">🧩 Misi: <span id="qTop">1</span> / 8</div>
+ </div>
+ <h1>🌈 Misi Detektif Tajwid 🌈</h1><div class="subtitle">✨ Jom belajar sambil bermain! ✨</div>
+ <div class="gamegrid">
+  <section class="panel">
+   <div class="character"><span class="avatar">👳🏻‍♂️</span><div class="namebadge">Ustaz Tarmizi · Pembimbing Tajwid</div></div>
+   <div class="character" style="animation-delay:-1.3s"><span class="avatar">🕵🏻‍♀️</span><div class="namebadge" id="detectiveBadge">Pencari Petunjuk</div></div>
+   <label for="playerName"><b>💖 Nama pencari petunjuk:</b></label>
+   <input id="playerName" value="" placeholder="Taip nama sendiri di sini" autocomplete="off">
+   <button class="primary hidden" id="startBtn">🚀 Mula / Main Semula</button>
+   <p style="text-align:center;font-weight:800">🌟 Jawab soalan, kumpul bintang dan jadi Detektif Tajwid!</p>
+  </section>
+  <section class="panel">
+   <div id="quizArea">
+    <div class="questionhead"><span class="qnum" id="qBadge">🎉 Soalan 1 / 8</span><span>💎 <b><span id="scoreInline">0</span> mata</b></span></div>
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+    <div class="question"><b id="questionText">Cari hukum tajwid bagi perkataan yang ditandakan.</b><div class="arabic" id="arabicText">مِنْ شَرِّ</div></div>
+    <div class="answers" id="answers"></div>
+    <div class="feedback" id="feedback">👀 Pilih jawapan yang betul untuk kumpul bintang!</div>
+    <button class="next" id="nextBtn">Seterusnya ➜</button>
+   </div>
+   <div id="resultArea" class="hidden">
+    <div style="text-align:center;font-size:3rem">🏆 🎊 🏆</div><h2 style="text-align:center">Misi Selesai!</h2>
+    <div class="bigscore"><span id="finalScore">0</span> / 80</div>
+    <p id="resultMessage" style="text-align:center;font-weight:900;font-size:1.15rem"></p>
+    <div style="text-align:center;font-size:2rem">🌟 ⭐ 💖 ⭐ 🌟</div>
+    <button class="primary" id="againBtn">🔄 Main Lagi</button>
+   </div>
+  </section>
+ </div>
+ <div class="footer">💜 Nota: Semak contoh ayat dan hukum tajwid dengan mushaf serta nota pensyarah sebelum pembentangan rasmi.</div>
+</div>
+<script>
+const qs=[
+ {a:"مِنْ هَادٍ",q:"Nun sukun bertemu huruf ه. Apakah hukumnya?",opts:["Izhar Halqi","Idgham Bighunnah","Iqlab","Ikhfa’ Haqiqi"],c:0,why:"Huruf ه ialah salah satu huruf halqi; nun sukun dibaca jelas."},
+ {a:"مَنْ يَعْمَلْ",q:"Nun sukun bertemu huruf ي. Apakah hukumnya?",opts:["Iqlab","Idgham Bighunnah","Izhar Halqi","Ikhfa’ Haqiqi"],c:1,why:"Huruf ي termasuk huruf Idgham Bighunnah; bacaan digabung dengan dengung."},
+ {a:"مِنْ بَعْدِ",q:"Nun sukun bertemu huruf ب. Apakah hukumnya?",opts:["Ikhfa’ Haqiqi","Izhar Halqi","Iqlab","Idgham Bighunnah"],c:2,why:"Apabila nun sukun atau tanwin bertemu ب, hukumnya Iqlab."},
+ {a:"مِنْ شَرِّ",q:"Nun sukun bertemu huruf ش. Apakah hukumnya?",opts:["Idgham Bighunnah","Iqlab","Izhar Halqi","Ikhfa’ Haqiqi"],c:3,why:"Huruf ش ialah salah satu huruf Ikhfa’ Haqiqi; bacaan disamarkan dengan dengung."},
+ {a:"عَلِيمٌ حَكِيمٌ",q:"Tanwin bertemu huruf ح. Apakah hukumnya?",opts:["Izhar Halqi","Iqlab","Ikhfa’ Haqiqi","Idgham Bighunnah"],c:0,why:"Huruf ح ialah huruf halqi, jadi tanwin dibaca jelas."},
+ {a:"غَفُورٌ وَدُودٌ",q:"Tanwin bertemu huruf و. Apakah hukumnya?",opts:["Ikhfa’ Haqiqi","Idgham Bighunnah","Izhar Halqi","Iqlab"],c:1,why:"Huruf و termasuk huruf Idgham Bighunnah."},
+ {a:"سَمِيعٌ بَصِيرٌ",q:"Tanwin bertemu huruf ب. Apakah hukumnya?",opts:["Idgham Bighunnah","Ikhfa’ Haqiqi","Iqlab","Izhar Halqi"],c:2,why:"Tanwin bertemu ب menghasilkan hukum Iqlab."},
+ {a:"أَنْفُسَكُمْ",q:"Nun sukun bertemu huruf ف. Apakah hukumnya?",opts:["Izhar Halqi","Idgham Bighunnah","Iqlab","Ikhfa’ Haqiqi"],c:3,why:"Huruf ف termasuk dalam 15 huruf Ikhfa’ Haqiqi."}
+];
+let idx=0,score=0,locked=false,audioCtx=null,melodyTimer=null,musicOn=false,note=0;
+const $=id=>document.getElementById(id);
+function render(){locked=false;let x=qs[idx];$('qTop').textContent=idx+1;$('qBadge').textContent=`🎉 Soalan ${idx+1} / 8`;$('scoreInline').textContent=score;$('scoreTop').textContent=score;$('progressBar').style.width=(idx/8*100)+'%';$('questionText').textContent=x.q;$('arabicText').textContent=x.a;$('feedback').textContent='👀 Pilih jawapan yang betul untuk kumpul bintang!';$('nextBtn').style.display='none';$('answers').innerHTML='';x.opts.forEach((o,i)=>{let b=document.createElement('button');b.className='answer';b.textContent=['🌸 ','🍊 ','🍀 ','💎 '][i]+o;b.onclick=()=>answer(i,b);$('answers').appendChild(b)});}
+function answer(i,btn){if(locked)return;locked=true;let x=qs[idx];[...$('answers').children].forEach((b,j)=>{b.disabled=true;if(j===x.c){b.style.outline='5px solid #fff36b';b.style.transform='scale(1.04)'}});
+if(i===x.c){score+=10;$('feedback').textContent='🎉 YEAY BETUL! +10 markah! ⭐🌟🎊 '+x.why;$('feedback').style.background='linear-gradient(90deg,#b8ffd5,#fff6a8)';confetti();playChime(true)}
+else{$('feedback').textContent='💗 Cuba lagi dalam misi seterusnya! '+x.why;$('feedback').style.background='linear-gradient(90deg,#ffd0e9,#ffe9b5)';playChime(false)}
+$('scoreTop').textContent=score;$('scoreInline').textContent=score;$('progressBar').style.width=((idx+1)/8*100)+'%';$('nextBtn').style.display='block';$('nextBtn').textContent=idx===7?'🏆 Lihat Keputusan!':'Seterusnya ➜';}
+function next(){if(idx<7){idx++;render()}else{finish()}}
+function finish(){$('quizArea').classList.add('hidden');$('resultArea').classList.remove('hidden');$('finalScore').textContent=score;$('resultMessage').textContent=score===80?'Hebat! Kau Juara Detektif Tajwid! 🌟':score>=50?'Bagus! Teruskan berlatih, kau semakin hebat! 💖':'Jangan putus asa! Cuba lagi dan kumpul lebih banyak bintang! 🌈';confetti(65);$('progressBar').style.width='100%'}
+function updateDetectiveName(){let n=$('playerName').value.trim();$('detectiveBadge').textContent=n ? n+' · Pencari Petunjuk' : 'Pencari Petunjuk'}
+function start(){idx=0;score=0;$('quizArea').classList.remove('hidden');$('resultArea').classList.add('hidden');updateDetectiveName();render()} 
+$('playerName').addEventListener('input',updateDetectiveName);
+function confetti(count=28){for(let i=0;i<count;i++){let e=document.createElement('i');e.className='confetti';e.style.left=Math.random()*100+'vw';e.style.background=['#ff4fa3','#ffd43b','#38d9ff','#8d4dff','#58e88b'][i%5];e.style.animationDelay=(Math.random()*.5)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3300)}}
+function tone(freq, delay, duration, wave='sine', volume=.12){if(!audioCtx)return;let now=audioCtx.currentTime+delay,o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=wave;o.frequency.setValueAtTime(freq,now);g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(volume,now+.025);g.gain.exponentialRampToValueAtTime(.0001,now+duration);o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+duration+.02)}
+function playChime(correct){
+ if(!audioCtx)return;
+ if(correct){
+  // Bright little fanfare: rising bells plus a soft sparkle chord.
+  [784,988,1175,1568,1318].forEach((f,i)=>tone(f,i*.075,.28,'sine',.14));
+  [1047,1318,1568].forEach((f,i)=>tone(f,i*.09,.24,'triangle',.045));
+ }else{
+  // Gentle, playful descending boing so a wrong answer is audible but not harsh.
+  tone(392,0,.18,'triangle',.11);tone(311,.12,.22,'triangle',.12);
+  tone(262,.25,.25,'sine',.11);tone(220,.36,.22,'triangle',.07);
+ }
+}
+function startJingle(){if(!audioCtx)return;[523,659,784,1047,988,1047,1318].forEach((f,i)=>tone(f,i*.105,.28,'triangle',.13))}
+function musicLoop(){if(!musicOn||!audioCtx)return;let seq=[784,988,1175,988,1047,1318,1047,988,784,988,1175,1568,1318,1175,1047,988,880,1047,1318,1175];let now=audioCtx.currentTime;let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='triangle';o.frequency.value=seq[note%seq.length];g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(.055,now+.025);g.gain.exponentialRampToValueAtTime(.0001,now+.22);o.connect(g);g.connect(audioCtx.destination);o.start(now);o.stop(now+.24);if(note%4===0)tone(seq[note%seq.length]/2,0,.22,'sine',.025);note++;melodyTimer=setTimeout(musicLoop,235)}
+function beginGame(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();startJingle();$('introScreen').classList.add('hidden');$('startBtn').classList.add('hidden');start();if(!musicOn){musicOn=true;$('musicBtn').textContent='🎵 Muzik: ON';musicLoop()}}
+$('musicBtn').onclick=()=>{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();musicOn=!musicOn;$('musicBtn').textContent=musicOn?'🎵 Muzik: ON':'🎵 Muzik: OFF';if(musicOn)musicLoop();else clearTimeout(melodyTimer)};
+$('beginBtn').onclick=beginGame;
+$('startBtn').onclick=()=>{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();startJingle();start()};
+$('againBtn').onclick=()=>{startJingle();$('startBtn').classList.add('hidden');start()};$('nextBtn').onclick=next;render();
+</script>
+</body>
+</html>
